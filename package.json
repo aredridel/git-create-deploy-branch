@@ -1,6 +1,6 @@
 {
   "name": "git-create-deploy-branch",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Creates and maintains a derivative branch of the current branch containing normally gitignored files for deployment.",
   "bin": "git-create-deploy-branch",
   "scripts": {
