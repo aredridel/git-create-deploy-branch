@@ -1,0 +1,24 @@
+{
+  "name": "git-create-deploy-branch",
+  "version": "1.0.0",
+  "description": "Creates and maintains a derivative branch of the current branch containing normally gitignored files for deployment.",
+  "bin": "git-create-deploy-branch",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aredridel/git-create-deploy-branch.git"
+  },
+  "keywords": [
+    "git",
+    "shell",
+    "deploy"
+  ],
+  "author": "Aria Stewart <aredridel@dinhe.net>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aredridel/git-create-deploy-branch/issues"
+  },
+  "homepage": "https://github.com/aredridel/git-create-deploy-branch#readme"
+}
