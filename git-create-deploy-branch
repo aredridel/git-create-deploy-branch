@@ -8,9 +8,28 @@ if [ -n "$CDUP" ]; then
     cd "$CDUP"
 fi
 
-GIT_DIR=`git rev-parse --git-dir`
+if [ "$1" = "-r" -o "$1" = "--root" ]; then
+    if [ -z "$2" ]; then
+        echo "Usage: $0 [ --root ROOT ] [ files ]" 2>&1
+        exit 1
+    fi
+
+    ROOT="$2"
+    shift; shift
+else
+    ROOT="."
+fi
+
+GIT_DIR="`pwd`/`git rev-parse --git-dir`"
 
 NEW_INDEX_FILE="$GIT_DIR/deploy-index"
+
+GIT_INDEX_FILE="$NEW_INDEX_FILE"
+GIT_WORK_TREE="`pwd`/$ROOT"
+
+export GIT_INDEX_FILE
+export GIT_DIR
+export GIT_WORK_TREE
 
 CURRENT_BRANCH=`git symbolic-ref --short HEAD`
 CURRENT_COMMIT=`git rev-parse HEAD`
@@ -22,10 +41,10 @@ if [ -z "$DEPLOY_BRANCH_EXISTS" ]; then
     git branch $DEPLOY_BRANCH $CURRENT_BRANCH
 fi
 
-git read-tree $DEPLOY_BRANCH --index-output="$NEW_INDEX_FILE"
 
-GIT_INDEX_FILE="$NEW_INDEX_FILE"
-export GIT_INDEX_FILE
+git read-tree -i --reset $DEPLOY_BRANCH --index-output="$NEW_INDEX_FILE"
+
+cd "$GIT_WORK_TREE"
 
 if [ -n "$1" ]; then
     git add -f "$@"
